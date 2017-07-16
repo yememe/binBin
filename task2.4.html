@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>task2.4</title>
+    <style>
+        li{
+            display:inline-block;
+            background-color: #cd4a48;
+            color: #f3f6f7;
+            font-size:20px;
+            text-align:center;
+            padding:5px;
+            margin:5px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <label>请输入要添加的数字：<input type="text" id="insertNum"></label>
+    <button id="leftInsert" class="insert">左侧入</button>
+    <button id="rightInsert" class = "insert">右侧入</button>
+    <button id="leftOut" class = "out">左侧出</button>
+    <button id="rightOut" class = "out">右侧出</button>
+    <div><ul id="displayNum"></ul></div>
+    <script>
+        var leftInsert = document.getElementById("leftInsert");
+        var rightInsert = document.getElementById("rightInsert");
+        var insertNum = document.getElementById("insertNum");
+        var leftOut = document.getElementById("leftOut");
+        var rightOut = document.getElementById("rightOut");
+        function insertNumber(direction){
+            if(insertNum.value ==""){
+                alert("Error for empty!");
+            }else if(isNaN(insertNum.value)){
+                alert("Error for not number!");
+                insertNum.value="";
+                insertNum.focus();
+            }else{
+                var displayNum = document.getElementById("displayNum");
+                var newELem = document.createElement("li");
+                var newText = document.createTextNode(insertNum.value);
+                newELem.appendChild(newText);
+                if (direction =="right"){
+                    displayNum.appendChild(newELem);
+                    insertNum.value="";
+                }else if(direction == "left"){
+                    displayNum.insertBefore(newELem,displayNum.firstChild);
+                    insertNum.value="";
+                }
+
+            }
+        }
+        function deleteNumber(direction){
+            if (direction == "left") {
+                displayNum.removeChild(displayNum.firstChild);
+            }else if (direction == "right"){
+                displayNum.removeChild(displayNum.lastChild);
+            }
+        }
+        
+       leftInsert.onclick = function(){insertNumber("left");};
+        rightInsert.onclick = function(){insertNumber("right");};
+        leftOut.onclick = function(){deleteNumber("left");};
+        rightOut.onclick = function(){deleteNumber("right");};
+        displayNum.addEventListener("click",function(e){
+            if(event.target.nodeName.toLowerCase()=="li"){
+            displayNum.removeChild(event.target);
+    }
+});
+    </script>
+</body>
+</html>

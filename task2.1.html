@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>task2-1</title>
+</head>
+<body>
+    <label>输入北京今天的空气质量：<input type="text" id="aqi-input"></label>
+    <button id="button">确认填写</button>
+
+    <div>您输入的值是：<span id="aqi-display">尚未录入</span></div>
+
+    <script>
+     
+        var btn =document.getElementById("button");
+        
+        function myButtonClick() {
+            var inputNumber = document.getElementById("aqi-input");
+            var displayNumber = document.getElementById("aqi-display");
+            displayNumber.innerHTML = inputNumber.value;
+        }
+        btn.addEventListener("click",myButtonClick);
+    </script>
+</body>
+</html>

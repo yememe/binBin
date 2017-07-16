@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>task2.4</title>
+    <style>
+    ul{
+        height: 200px;
+        display: flex;
+        flex-direction:row;
+        justify-content:flex-start;
+        align-items: flex-end;
+    }
+    li{
+        display:inline-block;
+        background-color: #cd4a48;
+        color: #f3f6f7;
+        font-size:20px;
+        text-align:center;
+        padding:5px;
+        margin:5px;
+        cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <label>请输入要添加的数字：<input type="text" id="insertNum"></label>
+    <button id="leftInsert" >左侧入</button>
+    <button id="rightInsert" >右侧入</button>
+    <button id="leftOut" >左侧出</button>
+    <button id="rightOut" >右侧出</button>
+    <button id="bubbleSort">冒泡排序</button>
+    <div><ul id="displayNum"></ul></div>
+    <script>
+        var leftInsert = document.getElementById("leftInsert");
+        var rightInsert = document.getElementById("rightInsert");
+        var insertNum = document.getElementById("insertNum");
+        var leftOut = document.getElementById("leftOut");
+        var rightOut = document.getElementById("rightOut");
+        var bubbleSort = document.getElementById("bubbleSort");
+        function insertNumber(direction){
+            if(insertNum.value ==""){
+                alert("Error for empty!");
+            }else if(isNaN(insertNum.value)){
+                alert("Error for not number!");
+                insertNum.value="";
+                insertNum.focus();
+            }else if(insertNum.value<10 || insertNum.value>100){
+                alert("Error for not in the range!");
+                insertNum.value="";
+                insertNum.focus();                
+            }
+            else{
+                var displayNum = document.getElementById("displayNum");
+                var newELem = document.createElement("li");
+                var newText = document.createTextNode(insertNum.value);
+                newELem.style.height=insertNum.value+"px";
+                newELem.appendChild(newText);
+                if (direction =="right"){
+                    var returnedNode=displayNum.appendChild(newELem);
+                    insertNum.value="";
+                }else if(direction == "left"){
+                    displayNum.insertBefore(newELem,displayNum.firstChild);
+                    insertNum.value="";
+                }
+
+            }
+        }
+        function deleteNumber(direction){
+            if (direction == "left") {
+                displayNum.removeChild(displayNum.firstChild);
+            }else if (direction == "right"){
+                displayNum.removeChild(displayNum.lastChild);
+            }
+        }
+        function bubble(numList){
+            var num = numList.getElementsByTagName('li');
+            var temp;
+            for (var i = num.length; i >0; i--) {
+                for (var j = 0; j < i-1; j++) {
+                    if(num[j].innerHTML > num [j+1].innerHTML){
+                        temp=num[j].innerHTML;
+                        num[j].innerHTML=num[j+1].innerHTML;
+                        num[j].style.height=num[j+1].innerHTML+"px";
+                        num[j+1].innerHTML=temp;                      
+                        num[j+1].style.height=temp+"px";
+                    }
+                }
+            }
+            
+        }
+        leftInsert.onclick = function(){insertNumber("left");};
+        rightInsert.onclick = function(){insertNumber("right");};
+        leftOut.onclick = function(){deleteNumber("left");};
+        rightOut.onclick = function(){deleteNumber("right");};
+        displayNum.addEventListener("click",function(e){
+            if(event.target.nodeName.toLowerCase()=="li"){
+            displayNum.removeChild(event.target);
+         }
+        });
+        bubbleSort.onclick=function(){bubble(displayNum);};
+    </script>
+</body>
+</html>

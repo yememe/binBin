@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+  </head>
+  <body>
+
+    <h3>污染城市列表</h3>
+    <ul id="aqi-list">
+<!--   
+    <li>第一名：福州（样例），10</li>
+    <li>第二名：福州（样例），10</li> -->
+    </ul>
+    <label>输入最低污染指数<input type="text" id="minValue"></label>
+    <button id="button">确认提交</button><br/>
+    <label><strong>污染城市列表</strong><br/><span id="displayList"></span></label>
+    <script type="text/javascript">
+
+        var aqiData = [
+            ["北京", 90],
+            ["上海", 50],
+            ["福州", 10],
+            ["广州", 50],
+            ["成都", 90],
+            ["西安", 100]
+        ];
+
+        
+
+        function changeData() {
+            // body...
+            var minValue = document.getElementById("minValue").value;
+            var cityList =[];
+            for (var i = 0; i < aqiData.length; i++) {
+                if (aqiData[i][1] >= minValue) {
+                    cityList.push(aqiData[i]);
+                }
+            }
+            return cityList;
+        }
+        function updateData() {
+            // body...
+            var cityList = changeData();
+            var displayList = document.getElementById("displayList"); 
+            for (var i = 0; i < cityList.length; i++) {
+                displayList.innerHTML+=cityList[i][0]+"空气污染指数为"+cityList[i][1]+"高于规定值；<br/>";
+            }
+        }
+        var btn = document.getElementById("button");
+        btn.addEventListener("click",changeData);
+        btn.addEventListener("click",updateData);
+
+</script>
+</body>
+</html>
